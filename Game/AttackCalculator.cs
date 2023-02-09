@@ -14,23 +14,21 @@ namespace Game
 
         public int CalculateDamage(Character atk, Character def, int dice)
         {
-            if (atk.Force + dice > def.armorClass)
+            var isAttackerAbleToDamage = atk.Force + dice > def.armorClass;
+            return isAttackerAbleToDamage ? DamageDealt(atk, dice) : 0;
+        }
+
+
+        private int DamageDealt(Character atk, int dice)
+        {
+            switch (dice)
             {
-                if (dice == 1)
-                {
+                case 1:
                     return 0;
-                }
-
-                if (dice == 20)
-                {
+                case 20:
                     return atk.damageDealt * 2;
-                }
-
-                return atk.damageDealt;
-            }
-            else
-            {
-                return 0;
+                default:
+                    return atk.damageDealt;
             }
         }
     }
