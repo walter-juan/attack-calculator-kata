@@ -3,12 +3,12 @@ package game
 import kotlin.random.Random
 import kotlin.random.nextInt
 
-class AttackCalculator {
+open class AttackCalculator {
     private val random = Random
 
     fun calculateDamage(atk: Character, def: Character): Int {
         val defaultAttack = atk.force
-        val dice = random.nextInt(1..20)
+        val dice = rollDice()
         val currentAttack = defaultAttack + dice
         var damage = atk.damageDealt
 
@@ -23,5 +23,9 @@ class AttackCalculator {
         } else {
             return 0
         }
+    }
+
+    open fun rollDice(): Int {
+        return random.nextInt(1..20)
     }
 }
